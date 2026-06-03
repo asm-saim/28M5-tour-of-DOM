@@ -1,0 +1,202 @@
+================================================================
+     Dynamic Style, getAttribute, setAttribute,
+              innerText, innerHTML
+================================================================
+
+1. Dynamic Style
+2. getAttribute()
+3. setAttribute()
+4. innerText
+5. innerHTML
+
+================================================================
+1. Dynamic Style
+================================================================
+
+- Directly change CSS styles via JavaScript using .style property
+- CSS property names become camelCase in JS
+  Example: border-radius  -->  borderRadius
+           background-color --> backgroundColor
+           font-size        --> fontSize
+
+Syntax:
+  element.style.propertyName = 'value';
+
+Example:
+  const box = document.getElementById('box');
+
+  box.style.color           = 'red';
+  box.style.backgroundColor = 'blue';
+  box.style.fontSize        = '20px';
+  box.style.borderRadius    = '10px';
+  box.style.display         = 'none';   // hide element
+  box.style.display         = 'block';  // show element
+
+NOTE:
+  Inline styles set this way have the highest CSS specificity.
+  To apply multiple styles at once, use classList instead:
+    element.classList.add('my-class');
+
+
+================================================================
+2. getAttribute()
+================================================================
+
+- Reads the value of any HTML attribute from an element
+- Returns the value as a STRING, or null if not found
+
+Syntax:
+  element.getAttribute('attributeName');
+
+Example:
+  HTML:  <a id="link" href="https://example.com" target="_blank">Click</a>
+
+  JS:    const link = document.getElementById('link');
+
+         link.getAttribute('href');     // "https://example.com"
+         link.getAttribute('target');   // "_blank"
+         link.getAttribute('id');       // "link"
+         link.getAttribute('class');    // null (if not set)
+
+  CUSTOM ATTRIBUTES (data-*):
+         HTML: <div data-user-id="42"></div>
+
+         el.getAttribute('data-user-id'); // "42"
+
+
+================================================================
+3. setAttribute()
+================================================================
+
+- Sets or UPDATES the value of any HTML attribute
+- If the attribute does not exist, it gets CREATED
+- If the attribute already exists, it gets OVERWRITTEN
+
+Syntax:
+  element.setAttribute('attributeName', 'value');
+
+Example:
+  const img = document.getElementById('photo');
+
+  img.setAttribute('src', 'newimage.jpg');   // update src
+  img.setAttribute('alt', 'A photo');        // add alt text
+  img.setAttribute('class', 'rounded');      // add/change class
+  img.setAttribute('disabled', '');          // disable a button
+  img.setAttribute('data-id', '101');        // custom data attribute
+
+  REMOVE an attribute:
+  img.removeAttribute('disabled');           // removes disabled
+
+
+================================================================
+4. innerText
+================================================================
+
+- Gets or sets the VISIBLE TEXT content of an element
+- Ignores HTML tags (renders them as plain text)
+- Ignores hidden elements (display: none)
+- Triggers reflow (slightly slower than textContent)
+
+Syntax:
+  element.innerText;              // GET
+  element.innerText = 'value';   // SET
+
+Example:
+  HTML:  <p id="msg">Hello <span style="display:none">World</span></p>
+
+  GET:
+         const p = document.getElementById('msg');
+         p.innerText;   // "Hello"  (hidden span is ignored)
+
+  SET:
+         p.innerText = 'New text here';
+         // renders as:  New text here
+
+         p.innerText = '<b>Bold?</b>';
+         // renders as literal text:  <b>Bold?</b>  (NOT bold)
+
+
+================================================================
+5. innerHTML
+================================================================
+
+- Gets or sets the HTML CONTENT inside an element
+- Parses and renders HTML tags when setting
+- Can read back raw HTML markup when getting
+
+Syntax:
+  element.innerHTML;              // GET
+  element.innerHTML = 'value';   // SET
+
+Example:
+  HTML:  <div id="box"><p>Hello</p></div>
+
+  GET:
+         const box = document.getElementById('box');
+         box.innerHTML;   // "<p>Hello</p>"
+
+  SET:
+         box.innerHTML = '<h2>Title</h2><p>Paragraph</p>';
+         // renders as real HTML: a heading + a paragraph
+
+         box.innerHTML = '';   // clears all content inside element
+
+  APPEND without replacing:
+         box.innerHTML += '<p>Added line</p>';
+
+
+================================================================
+innerText vs innerHTML
+================================================================
+
+Feature             | innerText               | innerHTML
+--------------------|-------------------------|---------------------
+Reads               | Visible text only       | Raw HTML string
+Writes              | Plain text (tags shown) | Parsed as real HTML
+Hidden elements     | Ignored                 | Included
+XSS Risk            | Safe                    | Risky with user input
+Use case            | Text content            | Dynamic HTML content
+
+SECURITY WARNING:
+  Never use innerHTML with untrusted or user-provided input.
+  It can lead to Cross-Site Scripting (XSS) attacks.
+
+  element.innerHTML = userInput;   // DANGEROUS
+  element.innerText = userInput;   // SAFE — treated as plain text
+
+
+================================================================
+Quick Summary
+================================================================
+
+Method                  | Purpose
+------------------------|----------------------------------------------
+element.style.prop      | Change CSS property directly via JS
+getAttribute('attr')    | Read any HTML attribute value
+setAttribute('a', 'v')  | Add or update any HTML attribute
+innerText               | Get/set visible plain text content
+innerHTML               | Get/set HTML content inside element
+
+
+================================================================
+Common Patterns
+================================================================
+
+// Toggle visibility
+el.style.display = el.style.display === 'none' ? 'block' : 'none';
+
+// Update a link
+link.setAttribute('href', 'https://newurl.com');
+link.innerText = 'New Label';
+
+// Inject HTML card
+container.innerHTML = '<div class="card"><h3>Title</h3><p>Body</p></div>';
+
+// Read data attribute
+const userId = el.getAttribute('data-user-id');
+
+// Highlight an element
+el.style.border = '2px solid red';
+el.style.backgroundColor = 'yellow';
+
+================================================================

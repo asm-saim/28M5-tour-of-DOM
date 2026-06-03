@@ -17,15 +17,68 @@
         <li>innerText</li>
         <li>innerHTML</li>
     </ul>
+    <a id="read" href="http://" target="_blank" rel="noopener noreferrer">
+        hello
+    </a>
+
+    <!-- innerHTML -->
+    <div id="box">
+        <p>Hello</p>
+    </div>
+
+
 
     <script>
-        const stylePractice=document.getElementById('parag');
 
-        parag.style.color='blue';
-        parag.style.backgroundColor='orange';
-        parag.style.padding='10px';
-        parag.style.fontSize='20px';
-        parag.style.borderRadius='30px';
+        //style
+        const stylePractice = document.getElementById('parag');
+
+        parag.style.color = 'blue';
+        parag.style.backgroundColor = 'orange';
+        parag.style.padding = '10px';
+        parag.style.fontSize = '20px';
+        parag.style.borderRadius = '30px';
+
+
+        //getAttribute(only read mode)
+        const read = document.getElementById('read');
+
+        const value1 = read.getAttribute('rel');
+        console.log(value1);
+
+        const value2 = read.getAttribute('href');
+        console.log(value2);
+
+
+        //setAttribute
+        const settingAttr = document.getElementById('read');
+
+        settingAttr.setAttribute('name', 'photo');
+        settingAttr.setAttribute('res', '200px');
+
+        console.log(settingAttr.getAttribute('name'));
+
+
+        //innerText
+
+        const text = document.getElementById('parag');
+        console.log(parag.innerText);
+
+        parag.innerText = "Be a believer"
+        console.log(parag.innerText)
+
+
+        //innerHTML
+        const box = document.getElementById('box');
+
+        // GET
+        box.innerHTML;    // "<p>Hello</p>"
+
+        // SET
+        box.innerHTML = '<h2>Title</h2><p>Paragraph</p>';  // renders as real HTML
+        box.innerHTML = '';                                  // clears the element
+
+
     </script>
 </body>
 
