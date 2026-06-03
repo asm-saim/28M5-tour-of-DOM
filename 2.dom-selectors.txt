@@ -1,0 +1,45 @@
+================================================================
+Quick Comparison Table
+================================================================
+ 
+Method                    | Returns            | Live?  | Count
+--------------------------|--------------------|--------|-------
+getElementById()          | Element / null     | N/A    | One
+getElementsByTagName()    | HTMLCollection     | Yes    | All
+getElementsByClassName()  | HTMLCollection     | Yes    | All
+querySelector()           | Element / null     | No     | One (first)
+querySelectorAll()        | NodeList           | No     | All
+ 
+ 
+================================================================
+When to Use What
+================================================================
+ 
+Goal                                  | Best Method
+--------------------------------------|----------------------------
+Select by unique id                   | getElementById()
+Select all of a tag type              | getElementsByTagName()
+Select all of a class                 | getElementsByClassName()
+Select first match (any CSS selector) | querySelector()
+Select all matches (any CSS selector) | querySelectorAll()
+Need real-time live updates           | getElements* methods
+Need predictable/static snapshot      | querySelector / querySelectorAll
+ 
+ 
+================================================================
+Tips
+================================================================
+ 
+1. querySelector / querySelectorAll are the most versatile —
+   they accept any CSS selector.
+ 
+2. getElementById is the fastest — use it when selecting by id.
+ 
+3. getElements* return LIVE collections — be careful in loops,
+   as the collection can change mid-iteration.
+ 
+4. querySelectorAll returns a STATIC NodeList — safe for loops.
+ 
+5. Convert HTMLCollection or NodeList to array when needed:
+      const arr = [...document.getElementsByClassName('card')];
+      arr.map(...); // now you can use map, filter, reduce, etc.

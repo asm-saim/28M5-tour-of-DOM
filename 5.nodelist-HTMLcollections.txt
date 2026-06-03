@@ -1,0 +1,90 @@
+================================================================
+         NodeList vs HTMLCollection - Quick Reference
+================================================================
+
+Both are array-like objects that hold DOM nodes, but they have
+key differences.
+
+----------------------------------------------------------------
+NodeList
+----------------------------------------------------------------
+- Returned by: querySelectorAll(), childNodes, etc.
+- Can contain ANY node type (elements, text nodes, comments)
+- Can be STATIC (querySelectorAll) or LIVE (childNodes)
+- Has forEach(), keys(), values(), entries() methods
+- Has .length property
+
+Example:
+  const items = document.querySelectorAll('li'); // Static NodeList
+  const children = element.childNodes;           // Live NodeList
+
+  items.forEach(item => console.log(item));      // works
+
+
+----------------------------------------------------------------
+HTMLCollection
+----------------------------------------------------------------
+- Returned by: getElementsByClassName(), getElementsByTagName(),
+  children, etc.
+- Contains ONLY Element nodes (no text or comment nodes)
+- Always LIVE — auto-updates when the DOM changes
+- Has .length and .namedItem(), but NO forEach()
+- Can access elements by index or by id/name
+
+Example:
+  const items = document.getElementsByClassName('item');
+
+  items.forEach(...)      // TypeError — no forEach
+  [...items].forEach(...) // convert first, then works
+
+
+----------------------------------------------------------------
+Key Comparison
+----------------------------------------------------------------
+
+Feature             | NodeList                    | HTMLCollection
+--------------------|-----------------------------|------------------
+Returned by         | querySelectorAll, childNodes| getElementsBy*, children
+Node types          | Any node                    | Elements only
+Live/Static         | Both (depends on method)    | Always live
+forEach()           | Yes                         | No
+Access by name      | No                          | Yes
+
+
+----------------------------------------------------------------
+Converting to Array (works for both)
+----------------------------------------------------------------
+
+  const arr1 = Array.from(collection);
+  const arr2 = [...collection];  // spread operator
+
+Once converted, you get full access to map(), filter(), reduce(), etc.
+
+
+----------------------------------------------------------------
+Live vs Static — Why It Matters
+----------------------------------------------------------------
+
+  const live    = document.getElementsByClassName('box'); // Live
+  const static_ = document.querySelectorAll('.box');      // Static
+
+  console.log(live.length);    // 3
+  console.log(static_.length); // 3
+
+  // Add a new .box element to the DOM...
+  document.body.appendChild(
+    Object.assign(document.createElement('div'), { className: 'box' })
+  );
+
+  console.log(live.length);    // 4  (auto-updated)
+  console.log(static_.length); // 3  (snapshot, not updated)
+
+
+----------------------------------------------------------------
+Rule of Thumb
+----------------------------------------------------------------
+Use querySelectorAll (static NodeList) for most cases — it's
+predictable. Use live collections only when you NEED real-time
+DOM tracking.
+
+================================================================
