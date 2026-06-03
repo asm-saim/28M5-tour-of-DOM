@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour of DOM</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<style>
+    h1 {
+        color: darkblue;
+    }
+</style>
+
+<body>
+    <h1>Tour towards getElementbyID</h1>
+    <h1>DOM-Document Object Model</h1>
+    <p>Note that, here not elements, it's element. So, only specific id element will be executed</p>
+    <ul class="first">
+        <li>document.getElementByID()</li>
+        <li>document.getElementByClassName()</li>
+        <li>Cricket</li>
+        <li class="skills">Archery</li>
+    </ul>
+    <div id="unique">
+        <h2 class="sprt">Sports that I would like to play</h2>
+        <p id="firstOne">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa eos rem corporis, praesentium
+            aperiam fugiat aliquam, <span>psa iste</span>i impedit <span>atque dolores ipsum</span>, eius nisi in cum
+            beatae esse ea
+            unde?</p>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa eos rem corporis, praesentium aperiam fugiat
+            aliquam, <span>psa iste</span>i impedit atque dolores ipsum, eius nisi in cum beatae esse ea unde?</p>
+        <ul>
+            <li>Baseball</li>
+            <li id="fav">football</li>
+            <li>Hockey</li>
+            <li class="skills">programming</li>
+            <li class="skills">Problem Solving</li>
+            <li class="skills">Swimming</li>
+        </ul>
+   </div>
+     <!-- Internal JavaScript Tag-->
+    <script>
+        const exploreQuery=document.querySelectorAll('#unique #firstOne span')
+        for(let que of exploreQuery){
+            console.log(que.innerText);
+        }
+
+        // only first one will executed.
+        const exploreQuerySelector=document.querySelector("#unique #firstOne span");
+        console.log(exploreQuerySelector.innerText);
+    </script>
+
+</body>
+
+</html>

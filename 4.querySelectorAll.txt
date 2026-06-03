@@ -1,0 +1,178 @@
+========================
+DOM Traversing - querySelector() & querySelectorAll()
+========================
+
+# querySelector()
+
+Used to select the FIRST matching element using a CSS selector.
+
+Syntax:
+document.querySelector("selector");
+
+# Select by ID
+
+HTML:
+<h1 id="title">Welcome</h1>
+
+JavaScript:
+const title = document.querySelector("#title");
+
+console.log(title.innerText);
+
+Output:
+Welcome
+
+# Select by Class
+
+HTML:
+<p class="message">Hello</p>
+
+JavaScript:
+const msg = document.querySelector(".message");
+
+console.log(msg.innerText);
+
+Output:
+Hello
+
+# Select by Tag Name
+
+HTML:
+<h1>JavaScript</h1>
+
+JavaScript:
+const heading = document.querySelector("h1");
+
+console.log(heading.innerText);
+
+Output:
+JavaScript
+
+# Important Note
+If multiple elements match,
+querySelector() returns ONLY the first one.
+
+Example:
+<p class="text">One</p>
+<p class="text">Two</p>
+
+document.querySelector(".text");
+
+Returns:
+<p>One</p>
+
+========================
+querySelectorAll()
+========================
+
+# querySelectorAll()
+
+Used to select ALL matching elements.
+
+Syntax:
+document.querySelectorAll("selector");
+
+# Example
+
+HTML:
+<p class="text">One</p>
+<p class="text">Two</p>
+<p class="text">Three</p>
+
+JavaScript:
+const texts =
+document.querySelectorAll(".text");
+
+console.log(texts);
+
+Output:
+NodeList(3)
+
+# Access Individual Elements
+
+console.log(texts[0].innerText);
+
+Output:
+One
+
+# Loop Through Elements
+
+for (const text of texts) {
+    console.log(text.innerText);
+}
+
+Output:
+One
+Two
+Three
+
+========================
+CSS Selectors Used
+========================
+
+# ID
+document.querySelector("#title");
+
+# Class
+document.querySelector(".message");
+
+# Tag
+document.querySelector("h1");
+
+# Nested Selector
+document.querySelector("div p");
+
+# Multiple Classes
+document.querySelector(".card .title");
+
+========================
+Return Types
+========================
+
+querySelector()
+→ Returns first matching element
+
+querySelectorAll()
+→ Returns NodeList of all matching elements
+
+========================
+Comparison
+========================
+
+getElementById("id")
+→ Select by id only
+
+getElementsByClassName("class")
+→ HTMLCollection
+
+getElementsByTagName("p")
+→ HTMLCollection
+
+querySelector(".class")
+→ First matching element
+
+querySelectorAll(".class")
+→ All matching elements (NodeList)
+
+========================
+Best Practice
+========================
+
+Modern JavaScript developers often prefer:
+
+querySelector()
+querySelectorAll()
+
+Because they:
+- use CSS selectors
+- are flexible
+- are easy to read
+
+========================
+Interview Answer
+========================
+
+Q: Difference between querySelector() and querySelectorAll()?
+
+A:
+querySelector() returns the first matching element, while querySelectorAll() returns a NodeList containing all matching elements.
