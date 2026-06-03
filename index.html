@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour of DOM</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<style>
+    h1 {
+        color: darkblue;
+    }
+</style>
+
+<body>
+    <h1>Tour towards DOM</h1>
+    <h1>DOM-Document Object Model</h1>
+    <p>DOM is a programming interface to access HTML document by using JavaScript.</p>
+    <ul>
+        <li>Document</li>
+        <li>Object</li>
+        <li>Model</li>
+    </ul>
+    <!-- Internal JavaScript Tag-->
+    <script>
+        console.log("Hello, I am JS. From html file");
+        
+        const list=document.getElementsByTagName('li');
+        for(const name of list){
+            console.log(name.innerText);
+        }
+
+        //
+        const heading=document.getElementsByTagName('h1');
+        for(let head of heading){
+            console.log(head.innerText);
+        }
+
+        //
+        const par=document.getElementsByTagName('p');
+        for(let txt of par)
+        {
+            console.log(txt.innerText);
+        }
+    </script>
+
+    <!-- External -->
+    <script src="js/hello.js"></script>
+</body>
+
+</html>

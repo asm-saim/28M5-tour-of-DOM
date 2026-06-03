@@ -1,0 +1,115 @@
+========================
+DOM & Connecting JavaScript with HTML
+========================
+
+# DOM (Document Object Model)
+
+DOM is a programming interface for HTML documents.
+
+It represents an HTML page as a tree of objects, allowing JavaScript to:
+- Access HTML elements
+- Change content
+- Change styles
+- Add/remove elements
+- Respond to user actions
+
+# Example HTML
+
+<h1 id="title">Hello World</h1>
+
+JavaScript:
+const title = document.getElementById("title");
+
+console.log(title);
+
+# DOM Tree Example
+
+<html>
+ ├─ <head>
+ └─ <body>
+      ├─ <h1>
+      └─ <p>
+
+Each HTML element becomes an object in the DOM.
+
+# Why DOM?
+
+JavaScript uses the DOM to:
+- Read HTML content
+- Modify HTML elements
+- Handle events (click, input, etc.)
+
+Example:
+document.getElementById("title").innerText = "Welcome";
+
+Output:
+The h1 text changes to "Welcome"
+
+========================
+Connect JavaScript with HTML
+========================
+
+# Method 1: Internal JavaScript
+
+<script>
+    console.log("Hello JS");
+</script>
+
+# Method 2: External JavaScript (Recommended)
+
+HTML:
+<script src="script.js"></script>
+
+JavaScript (script.js):
+console.log("External JS Connected");
+
+# Complete Example
+
+index.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM Practice</title>
+</head>
+<body>
+
+    <h1>Hello JavaScript</h1>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+
+script.js
+
+console.log("JS Connected Successfully");
+
+# Important Rule
+
+Place the script tag before </body>
+
+Good:
+<body>
+    ...
+    <script src="script.js"></script>
+</body>
+
+Reason:
+- HTML loads first
+- JavaScript runs after HTML is available
+
+# Common DOM Methods
+
+document.getElementById()
+document.getElementsByClassName()
+document.getElementsByTagName()
+document.querySelector()
+document.querySelectorAll()
+
+# Interview Answer
+
+Q: What is DOM?
+
+A:
+DOM (Document Object Model) is a tree-like representation of an HTML document that allows JavaScript to access and manipulate web page elements dynamically.

@@ -1,0 +1,150 @@
+========================
+DOM Traversing & Updating Content
+========================
+
+# getElementById()
+
+Used to select a single element by its id.
+
+Syntax:
+document.getElementById("idName");
+
+# Example
+
+HTML:
+<h1 id="title">Welcome</h1>
+
+JavaScript:
+const title = document.getElementById("title");
+
+console.log(title);
+
+# Access Text
+
+console.log(title.innerText);
+
+Output:
+Welcome
+
+========================
+getElementsByClassName()
+========================
+
+# getElementsByClassName()
+
+Used to select all elements with the same class name.
+
+Syntax:
+document.getElementsByClassName("className");
+
+# Example
+
+HTML:
+<p class="message">Hello</p>
+<p class="message">JavaScript</p>
+
+JavaScript:
+const messages =
+document.getElementsByClassName("message");
+
+console.log(messages);
+
+Output:
+HTMLCollection(2)
+
+# Access Individual Element
+
+console.log(messages[0].innerText);
+
+Output:
+Hello
+
+# Loop Through Elements
+
+for (const msg of messages) {
+    console.log(msg.innerText);
+}
+
+========================
+innerText
+========================
+
+# innerText
+
+Used to:
+- Read text content
+- Update text content
+
+# Get Text
+
+HTML:
+<h1 id="title">Welcome</h1>
+
+JavaScript:
+const title =
+document.getElementById("title");
+
+console.log(title.innerText);
+
+Output:
+Welcome
+
+# Update Text
+
+title.innerText = "Learning DOM";
+
+Output on webpage:
+Learning DOM
+
+# Another Example
+
+HTML:
+<p id="status">Offline</p>
+
+JavaScript:
+document.getElementById("status")
+.innerText = "Online";
+
+Output:
+Online
+
+========================
+Comparison
+========================
+
+getElementById()
+→ Select one element using id
+
+getElementsByClassName()
+→ Select multiple elements using class
+
+innerText
+→ Read or change text inside element
+
+========================
+Common DOM Pattern
+========================
+
+const heading =
+document.getElementById("title");
+
+heading.innerText = "New Heading";
+
+# Steps
+1. Select element
+2. Store in variable
+3. Read/update using innerText
+
+========================
+Interview Answer
+========================
+
+Q: What is innerText?
+
+A:
+innerText is a DOM property used to get or change the visible text content of an HTML element.
+
+Q: Difference between getElementById() and getElementsByClassName()?
+
+A:
+getElementById() returns a single element by id, while getElementsByClassName() returns an HTMLCollection of all elements having the specified class name.

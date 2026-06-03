@@ -1,0 +1,95 @@
+========================
+DOM Traversing - getElementsByTagName()
+========================
+
+# getElementsByTagName()
+
+Used to select all HTML elements with a specific tag name.
+
+Syntax:
+document.getElementsByTagName("tagName");
+
+# Example HTML
+
+<h1>Welcome</h1>
+<h1>JavaScript DOM</h1>
+<p>This is a paragraph</p>
+
+# JavaScript
+
+const headings = document.getElementsByTagName("h1");
+
+console.log(headings);
+
+Output:
+HTMLCollection(2)
+
+# Access Individual Elements
+
+console.log(headings[0]);
+console.log(headings[1]);
+
+Output:
+<h1>Welcome</h1>
+<h1>JavaScript DOM</h1>
+
+# Get Text Content
+
+const headings = document.getElementsByTagName("h1");
+
+console.log(headings[0].innerText);
+
+Output:
+Welcome
+
+# Loop Through Elements
+
+const paragraphs = document.getElementsByTagName("p");
+
+for (const p of paragraphs) {
+    console.log(p.innerText);
+}
+
+# Return Type
+
+getElementsByTagName() returns:
+HTMLCollection
+
+Example:
+const items = document.getElementsByTagName("li");
+
+console.log(items);
+
+# Select All Elements
+
+document.getElementsByTagName("*");
+
+Returns all elements in the page.
+
+# Common Examples
+
+document.getElementsByTagName("h1");
+document.getElementsByTagName("p");
+document.getElementsByTagName("li");
+document.getElementsByTagName("div");
+
+# Important Notes
+
+- Selects elements by tag name
+- Returns an HTMLCollection
+- Can access elements using index
+- Multiple elements may be returned
+- Tag name is written without < >
+
+Correct:
+document.getElementsByTagName("h1")
+
+Wrong:
+document.getElementsByTagName("<h1>")
+
+# Interview Answer
+
+Q: What does getElementsByTagName() return?
+
+A:
+It returns an HTMLCollection containing all elements with the specified tag name.
