@@ -1,0 +1,222 @@
+================================================================
+   NodeList, HTMLCollection, parentNode, childNodes,
+                    createElement
+================================================================
+
+1. NodeList
+2. HTMLCollection
+3. parentNode
+4. childNodes
+5. createElement()
+
+================================================================
+1. NodeList
+================================================================
+
+- A collection of nodes returned by querySelectorAll() or childNodes
+- Can contain ANY node type (elements, text nodes, comments)
+- Has forEach(), keys(), values(), entries() methods
+- Has .length property
+
+Types:
+  STATIC NodeList  -->  querySelectorAll()  (snapshot, won't update)
+  LIVE NodeList    -->  childNodes          (auto-updates with DOM)
+
+Syntax:
+  document.querySelectorAll('selector');
+  element.childNodes;
+
+Example:
+  const items = document.querySelectorAll('li');  // Static NodeList
+
+  items.length;                             // number of nodes
+  items[0];                                 // first node
+  items.forEach(item => console.log(item)); // has forEach
+
+CONVERT TO ARRAY:
+  const arr = [...items];
+  const arr = Array.from(items);
+
+
+================================================================
+2. HTMLCollection
+================================================================
+
+- A collection of ONLY HTML elements
+- Returned by getElementsBy* methods and .children property
+- Always LIVE — auto-updates when DOM changes
+- No forEach() — must convert to array first
+- Can access elements by index, id, or name
+
+Syntax:
+  document.getElementsByClassName('className');
+  document.getElementsByTagName('tagName');
+  element.children;
+
+Example:
+  const cards = document.getElementsByClassName('card');
+
+  cards.length;         // number of elements
+  cards[0];             // first element
+  cards['myId'];        // access by id or name
+
+  cards.forEach(...)        // ERROR — no forEach
+  [...cards].forEach(...)   // convert first, then works
+
+CONVERT TO ARRAY:
+  const arr = [...cards];
+  const arr = Array.from(cards);
+
+
+================================================================
+3. parentNode
+================================================================
+
+- Accesses the PARENT of a node (the element that wraps it)
+- Returns null if the node has no parent (e.g. document)
+- Related: parentElement — same but returns null for non-element parents
+
+Syntax:
+  element.parentNode;
+
+Example:
+  HTML:  <div id="container">
+           <p id="para">Hello</p>
+         </div>
+
+  JS:    const para = document.getElementById('para');
+
+         para.parentNode;        // <div id="container">
+         para.parentNode.id;     // "container"
+
+COMMON PATTERN — remove element via its parent:
+         para.parentNode.removeChild(para);
+
+TRAVERSE UP:
+         el.parentNode;                    // direct parent
+         el.parentNode.parentNode;         // grandparent
+
+
+================================================================
+4. childNodes
+================================================================
+
+- Returns a LIVE NodeList of ALL child nodes
+- Includes text nodes, comment nodes, AND element nodes
+- Whitespace/newlines between tags count as text nodes!
+- Use .children instead to get ONLY element nodes
+
+Syntax:
+  element.childNodes;   // all child nodes (NodeList)
+  element.children;     // element nodes only (HTMLCollection)
+
+Example:
+  HTML:  <ul id="list">
+           <li>One</li>
+           <li>Two</li>
+         </ul>
+
+  JS:    const ul = document.getElementById('list');
+
+         ul.childNodes;          // [text, li, text, li, text]
+         ul.childNodes.length;   // 5 (includes whitespace nodes!)
+         ul.childNodes[0];       // text node (newline/whitespace)
+         ul.childNodes[1];       // <li>One</li>
+
+  USE .children FOR ELEMENTS ONLY:
+         ul.children;            // HTMLCollection [li, li]
+         ul.children.length;     // 2
+
+childNodes vs children:
+  Property    | Type            | Includes              | forEach
+  ------------|-----------------|------------------------|--------
+  childNodes  | NodeList        | All nodes (text, etc.) | Yes
+  children    | HTMLCollection  | Elements only          | No
+
+
+================================================================
+5. createElement()
+================================================================
+
+- Creates a NEW HTML element in memory
+- Element is NOT visible until appended to the DOM
+- Combine with setAttribute(), innerText, innerHTML to build it
+- Use appendChild() or append() to add it to the page
+
+Syntax:
+  document.createElement('tagName');
+
+Example:
+  // CREATE elements
+  const div = document.createElement('div');
+  const p   = document.createElement('p');
+  const btn = document.createElement('button');
+
+  // ADD content and attributes
+  div.innerText = 'Hello World';
+  div.setAttribute('class', 'card');
+  div.style.color = 'blue';
+
+  // APPEND to DOM (now it becomes visible)
+  document.body.appendChild(div);
+
+FULL EXAMPLE — build a list item and add it:
+  const li = document.createElement('li');
+  li.innerText = 'New Item';
+  li.setAttribute('class', 'list-item');
+  document.getElementById('list').appendChild(li);
+
+BUILD NESTED ELEMENTS:
+  const card = document.createElement('div');
+  const title = document.createElement('h3');
+  const body  = document.createElement('p');
+
+  title.innerText = 'Card Title';
+  body.innerText  = 'Card body text.';
+
+  card.appendChild(title);
+  card.appendChild(body);
+  document.body.appendChild(card);
+
+
+================================================================
+Quick Summary
+================================================================
+
+Feature           | Description
+------------------|----------------------------------------------
+NodeList          | Any node type; has forEach(); static or live
+HTMLCollection    | Elements only; always live; no forEach()
+parentNode        | Gets the direct parent node of an element
+childNodes        | Gets ALL child nodes (text, comments, elements)
+createElement()   | Creates a new element in memory to add to DOM
+
+
+================================================================
+Common Patterns
+================================================================
+
+// Traverse parent
+el.parentNode.style.backgroundColor = 'yellow';
+
+// Loop childNodes (skip text nodes)
+el.childNodes.forEach(node => {
+  if (node.nodeType === 1) {  // 1 = Element node
+    console.log(node);
+  }
+});
+
+// Use children instead (elements only, no text nodes)
+[...el.children].forEach(child => console.log(child));
+
+// Create and insert element at top
+const newEl = document.createElement('div');
+newEl.innerText = 'First!';
+parent.insertBefore(newEl, parent.firstChild);
+
+// Remove element
+el.parentNode.removeChild(el);
+// or modern way:
+el.remove();
+
+================================================================
